@@ -1,0 +1,92 @@
+Ejercicios Semana 1
+Ejercicio 1:
+1.	Inicio
+2.	Buscar un lugar cómodo
+3.	Si estoy en un lugar fuera de la oficina:
+a.	Sacar el celular
+b.	Mientras no haya metido el código correcto de desbloqueo:
+i.	Intentar nuevo código
+c.	Abrir youtube
+d.	Mientras no haya encontrado contenido de mi interés:
+i.	Scroll hacia abajo
+e.	Seleccionar video
+4.	Sino:
+a.	Encender el computador
+b.	Mientras no haya metido el código correcto de desbloqueo:
+i.	Intentar nuevo código
+c.	Abrir el navegador
+d.	Teclear “youtube.com”
+e.	Mientras no haya cargado la página:
+i.	Dar vueltas en la silla
+f.	Mientras no haya encontrado contenido de mi interés:
+i.	Scroll hacia abajo
+g.	Seleccionar video
+5.	Mirar el video
+6.	Si me gustó:
+a.	Suscribirme al canal
+7.	Sino:
+a.	Dar dislike
+8.	Cerrar youtube
+9.	Fin
+ 
+Ejercicio 2:
+1.	Inicio
+2.	Escuchar el despertador
+3.	Apagar el despertador
+4.	Si tengo más sueño:
+a.	Reprogramar Segunda alarma
+b.	Mientras no suene la segunda alarma:
+i.	Dormir
+c.	Apagar el despertador
+5.	Levantarme de la cama
+6.	Ir al baño
+7.	Tomar el cepillo de dientes
+8.	Poner pasta
+9.	Mientras haya dientes sin cepillar:
+a.	Cepillar dientes
+10.	Enjuagarse la boca
+11.	Si es día laboral:
+a.	Encender computador
+b.	Revisar reuniones pendientes
+c.	Si hay reunión:
+i.	Bañarse
+d.	Organizar tareas a realizar
+e.	Mientras no sean las 5 pm:
+i.	Realizar las listas de tareas
+f.	Revisar Hechos y Por Hacer
+g.	Apagar computador
+h.	Bañarse
+12.	Sino:
+a.	Confirmar pendientes del día
+b.	Bañarse
+c.	Si es domingo:
+i.	Mientras haya basureros con basura:
+1.	Recoger basura
+ii.	Sacar la basura
+d.	Si hay actividades para el día:
+i.	Conducir al lugar
+ii.	Mientras esté en la actividad:
+1.	Socializar
+2.	Si me entretengo con las personas:
+a.	Permanecer
+3.	Sino:
+a.	Moverme a un nuevo grupo
+iii.	Despedirse
+iv.	Regresar a casa
+13.	Si tengo tareas pendientes académicas:
+a.	Plantear cuenta atrás de 2 horas
+b.	Mientras no haya terminado el trabajo:
+i.	Realizar deberes
+14.	Sino:
+a.	Si hay amigos conectados para jugar:
+i.	Mientras haya gente con quien jugar:
+1.	Divertirse
+2.	Pelear
+ii.	Apagar computadora
+b.	Sino:
+i.	Ver videos (Llama rutina de youtube)
+ii.	Apagar dispositivo
+15.	Setear alarma para siguiente día
+16.	Fin
+
+
