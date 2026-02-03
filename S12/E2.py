@@ -1,4 +1,6 @@
-class Shape:
+from abc import ABC, abstractmethod
+
+class Shape(ABC):
     @abstractmethod
     def calculate_area(self):
         raise NotImplementedError("La subclase debe implementar este método")

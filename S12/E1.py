@@ -1,4 +1,6 @@
-class BankAccount:
+from abc import ABC, abstractmethod
+
+class BankAccount(ABC):
 
     def __init__(self,balance = 0):
         self.balance = balance
