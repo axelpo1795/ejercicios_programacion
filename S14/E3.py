@@ -1,0 +1,44 @@
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, value):
+        if self.root is None:
+            self.root = Node(value)
+        else:
+            self._insert_recursive(self.root, value)
+
+    def _insert_recursive(self, node, value):
+        if value < node.value:
+            if node.left is None:
+                node.left = Node(value)
+            else:
+                self._insert_recursive(node.left, value)
+        else:
+            if node.right is None:
+                node.right = Node(value)
+            else:
+                self._insert_recursive(node.right, value)
+
+    def print_tree(self):
+        self._print_in_order(self.root)
+
+    def _print_in_order(self, node):
+        if node is not None:
+            self._print_in_order(node.left)
+            print(node.value)
+            self._print_in_order(node.right)
+
+# Example usage
+if __name__ == "__main__":
+    bt = BinaryTree()
+    for val in [5, 3, 7, 2, 4, 6, 8]:
+        bt.insert(val)
+    print("Tree contents (in-order):")
+    bt.print_tree()
