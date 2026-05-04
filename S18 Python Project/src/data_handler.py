@@ -4,7 +4,7 @@ Data handler for persisting and loading financial data.
 
 import json
 import os
-from typing import List, Dict, Any
+from typing import List
 from models import Transaction, Category
 
 

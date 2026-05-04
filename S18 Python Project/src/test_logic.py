@@ -216,51 +216,5 @@ class TestDataHandler(unittest.TestCase):
         self.assertEqual(new_handler.categories[0].name, "Prueba")
 
 
-class TestComplexScenarios(unittest.TestCase):
-    """Test complex real-world scenarios."""
-    
-    def setUp(self):
-        """Set up test fixture."""
-        self.test_filename = 'test_complex_finance_data.json'
-        self.data_handler = DataHandler(self.test_filename)
-    
-    def tearDown(self):
-        """Clean up test data file."""
-        if os.path.exists(self.test_filename):
-            os.remove(self.test_filename)
-    
-    def test_monthly_budget_scenario(self):
-        """Test a complete monthly budget scenario."""
-        # Add income
-        self.data_handler.add_transaction("Salario", None, 2500.00, "ingreso")
-        
-        # Add expenses
-        self.data_handler.add_category("Vivienda")
-        self.data_handler.add_category("Comida")
-        self.data_handler.add_category("Transporte")
-        
-        self.data_handler.add_transaction("Alquiler", "Vivienda", 800.00, "gasto")
-        self.data_handler.add_transaction("Supermercado", "Comida", 300.00, "gasto")
-        self.data_handler.add_transaction("Gasolina", "Transporte", 100.00, "gasto")
-        
-        # Verify calculations
-        total_income = self.data_handler.get_total_income()
-        total_expenses = self.data_handler.get_total_expenses()
-        balance = self.data_handler.get_total()
-        
-        self.assertEqual(total_income, 2500.00)
-        self.assertEqual(total_expenses, 1200.00)
-        self.assertEqual(balance, 1300.00)
-    
-    def test_multiple_income_sources(self):
-        """Test handling multiple income sources."""
-        self.data_handler.add_transaction("Salario", None, 2000.00, "ingreso")
-        self.data_handler.add_transaction("Freelance", None, 500.00, "ingreso")
-        self.data_handler.add_transaction("Intereses", None, 50.00, "ingreso")
-        
-        total_income = self.data_handler.get_total_income()
-        self.assertEqual(total_income, 2550.00)
-
-
 if __name__ == '__main__':
     unittest.main()

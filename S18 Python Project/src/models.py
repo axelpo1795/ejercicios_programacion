@@ -31,9 +31,6 @@ class Category:
     def from_dict(data: dict):
         """Create a category from a dictionary."""
         return Category(data['name'], data.get('category_id'))
-    
-    def __repr__(self):
-        return f"Category(name='{self.name}')"
 
 
 class Transaction:
@@ -82,7 +79,3 @@ class Transaction:
             data.get('date'),
             data.get('transaction_id')
         )
-    
-    def __repr__(self):
-        sign = '+' if self.transaction_type == 'ingreso' else '-'
-        return f"Transaction(detail='{self.detail}', category='{self.category}', amount={sign}{self.amount})"
