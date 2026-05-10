@@ -93,7 +93,7 @@ class DataHandler:
         
         Args:
             detail: Transaction description
-            category: Category name (None for ingreso)
+            category: Category name
             amount: Transaction amount
             transaction_type: 'ingreso' or 'gasto'
             
@@ -106,13 +106,13 @@ class DataHandler:
         if not detail:
             raise ValueError("El detalle no puede estar vacío.")
         
-        # Only gasto transactions require a category
-        if transaction_type == 'gasto':
-            if not category:
-                raise ValueError("Se debe seleccionar una categoría para gastos.")
-            # Validate category exists
-            if not any(cat.name == category for cat in self.categories):
-                raise ValueError(f"La categoría '{category}' no existe.")
+        # Both ingreso and gasto transactions require a category
+        if not category:
+            raise ValueError("Se debe seleccionar una categoría.")
+        
+        # Validate category exists
+        if not any(cat.name == category for cat in self.categories):
+            raise ValueError(f"La categoría '{category}' no existe.")
         
         transaction = Transaction(detail, category, amount, transaction_type)
         self.transactions.append(transaction)

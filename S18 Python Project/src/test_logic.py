@@ -41,12 +41,12 @@ class TestTransaction(unittest.TestCase):
         """Test creating an income transaction."""
         transaction = Transaction(
             detail="Pago de trabajo",
-            category=None,
+            category="Salario",
             amount=1000.00,
             transaction_type="ingreso"
         )
         self.assertEqual(transaction.detail, "Pago de trabajo")
-        self.assertIsNone(transaction.category)
+        self.assertEqual(transaction.category, "Salario")
         self.assertEqual(transaction.amount, 1000.00)
         self.assertEqual(transaction.transaction_type, "ingreso")
     
@@ -127,18 +127,19 @@ class TestDataHandler(unittest.TestCase):
     
     def test_add_transaction_ingreso(self):
         """Test adding an income transaction."""
+        self.data_handler.add_category("Salario")
         transaction = self.data_handler.add_transaction(
-            detail="Salario",
-            category=None,
+            detail="Pago de trabajo",
+            category="Salario",
             amount=2000.00,
             transaction_type="ingreso"
         )
-        self.assertEqual(transaction.detail, "Salario")
-        self.assertIsNone(transaction.category)
+        self.assertEqual(transaction.detail, "Pago de trabajo")
+        self.assertEqual(transaction.category, "Salario")
         self.assertIn(transaction, self.data_handler.transactions)
     
-    def test_add_transaction_without_category_for_gasto_raises_error(self):
-        """Test that gasto without category raises ValueError."""
+    def test_add_transaction_without_category_raises_error(self):
+        """Test that missing category raises ValueError."""
         with self.assertRaises(ValueError):
             self.data_handler.add_transaction(
                 detail="Compra",
@@ -146,11 +147,20 @@ class TestDataHandler(unittest.TestCase):
                 amount=50.00,
                 transaction_type="gasto"
             )
+        
+        with self.assertRaises(ValueError):
+            self.data_handler.add_transaction(
+                detail="Ingreso",
+                category=None,
+                amount=100.00,
+                transaction_type="ingreso"
+            )
     
     def test_get_total_income(self):
         """Test calculating total income."""
-        self.data_handler.add_transaction("Trabajo", None, 1000.00, "ingreso")
-        self.data_handler.add_transaction("Bonificación", None, 500.00, "ingreso")
+        self.data_handler.add_category("Salario")
+        self.data_handler.add_transaction("Trabajo", "Salario", 1000.00, "ingreso")
+        self.data_handler.add_transaction("Bonificación", "Salario", 500.00, "ingreso")
         total_income = self.data_handler.get_total_income()
         self.assertEqual(total_income, 1500.00)
     
@@ -164,17 +174,19 @@ class TestDataHandler(unittest.TestCase):
     
     def test_get_total_balance(self):
         """Test calculating total balance (ingreso - gasto)."""
-        self.data_handler.add_transaction("Salario", None, 2000.00, "ingreso")
+        self.data_handler.add_category("Salario")
         self.data_handler.add_category("Comida")
+        self.data_handler.add_transaction("Salario", "Salario", 2000.00, "ingreso")
         self.data_handler.add_transaction("Compra", "Comida", 500.00, "gasto")
         total_balance = self.data_handler.get_total()
         self.assertEqual(total_balance, 1500.00)
     
     def test_delete_transaction(self):
         """Test deleting a transaction."""
+        self.data_handler.add_category("Salario")
         transaction = self.data_handler.add_transaction(
             "Compra",
-            None,
+            "Salario",
             100.00,
             "ingreso"
         )
@@ -193,21 +205,23 @@ class TestDataHandler(unittest.TestCase):
     
     def test_invalid_amount_raises_error(self):
         """Test that invalid amount raises ValueError."""
+        self.data_handler.add_category("Salario")
         with self.assertRaises(ValueError):
-            self.data_handler.add_transaction("Test", None, 0, "ingreso")
+            self.data_handler.add_transaction("Test", "Salario", 0, "ingreso")
         
         with self.assertRaises(ValueError):
-            self.data_handler.add_transaction("Test", None, -100, "ingreso")
+            self.data_handler.add_transaction("Test", "Salario", -100, "ingreso")
     
     def test_empty_detail_raises_error(self):
         """Test that empty detail raises ValueError."""
+        self.data_handler.add_category("Salario")
         with self.assertRaises(ValueError):
-            self.data_handler.add_transaction("", None, 100.00, "ingreso")
+            self.data_handler.add_transaction("", "Salario", 100.00, "ingreso")
     
     def test_save_and_load_data(self):
         """Test saving and loading data persistence."""
         self.data_handler.add_category("Prueba")
-        self.data_handler.add_transaction("Ingreso", None, 100.00, "ingreso")
+        self.data_handler.add_transaction("Ingreso", "Prueba", 100.00, "ingreso")
         
         # Load data again from file
         new_handler = DataHandler(self.test_filename)

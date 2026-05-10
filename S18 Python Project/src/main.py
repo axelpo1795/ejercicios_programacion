@@ -74,8 +74,7 @@ class MainWindow:
             sign = '+' if transaction.transaction_type == 'ingreso' else '-'
             amount_display = f"{sign}{transaction.amount:.2f}"
             type_display = 'Ingreso' if transaction.transaction_type == 'ingreso' else 'Gasto'
-            category_display = transaction.category if transaction.category else '-'
-            data.append([transaction.detail, category_display, amount_display, type_display, transaction.date])
+            data.append([transaction.detail, transaction.category, amount_display, type_display, transaction.date])
         return data if data else [['Sin transacciones aún', '', '', '', '']]
     
     def _refresh_display(self):
@@ -129,7 +128,8 @@ class MainWindow:
     def _add_income(self):
         """Handle add income button."""
         try:
-            form = AddIncomeForm()
+            categories = self.data_handler.get_categories_names()
+            form = AddIncomeForm(categories)
             result = form.show()
             
             if result:

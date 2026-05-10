@@ -139,55 +139,8 @@ class AddExpenseForm(AddTransactionForm):
 
 
 class AddIncomeForm(AddTransactionForm):
-    """Dialog form for adding an income (no category required)."""
+    """Dialog form for adding an income."""
     
-    def __init__(self):
+    def __init__(self, categories: list):
         """Initialize the income form."""
-        # Income doesn't require categories
-        super().__init__('ingreso', [])
-    
-    def show(self) -> Optional[Tuple[str, str, float]]:
-        """
-        Show the add income dialog (without category).
-        
-        Returns:
-            Tuple of (detail, None, amount) or None if cancelled
-        """
-        layout = [
-            [sg.Text('Detalle:'), sg.InputText(key='-DETAIL-', size=(30, 1))],
-            [sg.Text('Monto:'), sg.InputText(key='-AMOUNT-', size=(15, 1))],
-            [sg.Button('Agregar'), sg.Button('Cancelar')]
-        ]
-        
-        window = sg.Window('Agregar Ingreso', layout)
-        
-        while True:
-            event, values = window.read()
-            
-            if event == sg.WINDOW_CLOSED or event == 'Cancelar':
-                window.close()
-                return None
-            
-            if event == 'Agregar':
-                detail = values['-DETAIL-'].strip()
-                amount_str = values['-AMOUNT-'].strip()
-                
-                # Validation
-                if not detail:
-                    sg.popup('Por favor ingrese un detalle/descripción.', title='Error', button_type=sg.POPUP_BUTTONS_OK, button_color=('white', 'red'))
-                    continue
-                
-                if not amount_str:
-                    sg.popup('Por favor ingrese un monto.', title='Error', button_type=sg.POPUP_BUTTONS_OK, button_color=('white', 'red'))
-                    continue
-                
-                try:
-                    amount = float(amount_str)
-                    if amount <= 0:
-                        raise ValueError("El monto debe ser mayor que 0.")
-                except ValueError as exception:
-                    sg.popup(f'Monto inválido: {str(exception)}', title='Error', button_type=sg.POPUP_BUTTONS_OK, button_color=('white', 'red'))
-                    continue
-                
-                window.close()
-                return (detail, None, amount)
+        super().__init__('ingreso', categories)
