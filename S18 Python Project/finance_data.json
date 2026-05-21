@@ -1,0 +1,26 @@
+{
+    "transactions": [
+        {
+            "detail": "Salario",
+            "category": null,
+            "amount": 100000.0,
+            "transaction_type": "ingreso",
+            "date": "2026-05-04",
+            "transaction_id": "-1209468591509087063"
+        },
+        {
+            "detail": "Sal",
+            "category": "Comida",
+            "amount": 3000.0,
+            "transaction_type": "gasto",
+            "date": "2026-05-04",
+            "transaction_id": "-8503715922097081655"
+        }
+    ],
+    "categories": [
+        {
+            "name": "Comida",
+            "category_id": "5467430487701949312"
+        }
+    ]
+}
