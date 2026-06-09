@@ -27,14 +27,14 @@ CREATE TABLE Sales (
     Quantity INTEGER NOT NULL,
     Total_Amount FLOAT NOT NULL,
     FOREIGN KEY (Invoice_Number) REFERENCES Invoices(Invoice_Number),
-    FOREIGN KEY (Code) REFERENCES Products(Code)
+    FOREIGN KEY (Product_Code) REFERENCES Products(Code)
 );
 
 CREATE TABLE Cart_Content (
     Id_Cart INTEGER NOT NULL,
     Product_Code INTEGER NOT NULL,
     Quantity INTEGER NOT NULL,
-    PRIMARY KEY (Id_Cart),
+    PRIMARY KEY (Id_Cart, Product_Code),
     FOREIGN KEY (Id_Cart) REFERENCES Shopping_Cart(Id_Cart),
     FOREIGN KEY (Product_Code) REFERENCES Products(Code)
 );
