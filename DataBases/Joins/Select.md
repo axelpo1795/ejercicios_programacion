@@ -38,3 +38,34 @@ La sentencia `SELECT` es una de las instrucciones principales del lenguaje SQL y
 ### RIGHT JOIN
 
 `RIGHT JOIN` funciona de manera similar a `LEFT JOIN`, pero conserva todos los registros de la tabla ubicada a la derecha. Los registros que no tengan una coincidencia en la tabla izquierda mostrarán valores `NULL` en los campos correspondientes.
+
+### RESULTADOS EJERCICIOS
+
+## Ejercicio 1
+
+![Ejercicio 1](Ej1.png)
+
+## Ejercicio 2
+
+![Ejercicio 2](Ej2.png)
+
+## Ejercicio 3
+
+![Ejercicio 3](Ej3.png)
+
+## Ejercicio 4
+
+![Ejercicio 4](Ej4.png)
+
+## Ejercicio 5
+
+![Ejercicio 5](Ej5.png)
+
+## Ejercicio 6
+
+![Ejercicio 6](Ej6.png)
+
+## Ejercicio 7
+
+![Ejercicio 7](Ej7.png)
+
