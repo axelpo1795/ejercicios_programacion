@@ -1,0 +1,16 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "OrdersDB",
+            "database": "C:\\Users\\axel1\\Downloads\\ejercicios_programacion\\DataBases\\Orders Normalization\\Orders.db"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Books",
+            "database": "${workspaceFolder:Joins}/Books.db"
+        }
+    ]
+}
