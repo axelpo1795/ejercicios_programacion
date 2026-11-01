@@ -33,7 +33,7 @@ BEGIN
             'El usuario % no existe', v_user_id;
     END IF;
 
-    -- 3. Validar que existan productos en la compra
+    -- 3. Verificar que la compra no este vacia
     IF NOT EXISTS (
         SELECT 1 FROM purchase_items
     ) THEN
@@ -55,7 +55,8 @@ BEGIN
             'Producto inexistente o cantidad invalida';
     END IF;
 
-    -- 5. Comprobar existencias y bloquear productos
+    -- 5. Verificar stock y bloquear productos
+    -- para evitar compras simultaneas sin stock
     FOR v_product IN
         SELECT
             p."ProductID" AS product_id,
@@ -83,7 +84,7 @@ BEGIN
         END IF;
     END LOOP;
 
-    -- 6. Calcular el total de la factura
+    -- 6. Calcular el total de la compra
     SELECT SUM(p."Price" * i.quantity)
     INTO v_total
     FROM "Products" p
@@ -95,45 +96,29 @@ BEGIN
             'No se pudo calcular el total';
     END IF;
 
-    -- 7. Bloquear tabla para generar IDs manuales
-    -- Evita IDs duplicados entre compras simultaneas
-    LOCK TABLE "Bills", "BillDetails"
-    IN SHARE ROW EXCLUSIVE MODE;
-
-    -- 8. Generar ID de factura
-    SELECT COALESCE(MAX("BillID"), 0) + 1
-    INTO v_bill_id
-    FROM "Bills";
-
-    -- 9. Insertar factura
+    -- 7. Insertar factura
+    -- PostgreSQL genera BillID automaticamente
     INSERT INTO "Bills" (
-        "BillID",
         "UserID",
         "Date",
         "Total"
     )
     VALUES (
-        v_bill_id,
         v_user_id,
         CURRENT_DATE,
         v_total
-    );
+    )
+    RETURNING "BillID" INTO v_bill_id;
 
-    -- 10. Insertar detalles de la factura
+    -- 8. Insertar detalles de la factura
+    -- DetailID se genera automaticamente
     INSERT INTO "BillDetails" (
-        "DetailID",
         "BillID",
         "ProductID",
         "Quantity",
         "UnitPrice"
     )
     SELECT
-        (
-            SELECT COALESCE(MAX("DetailID"), 0)
-            FROM "BillDetails"
-        ) + ROW_NUMBER() OVER (
-            ORDER BY p."ProductID"
-        ),
         v_bill_id,
         p."ProductID",
         i.quantity,
@@ -148,7 +133,7 @@ BEGIN
     JOIN "Products" p
         ON p."ProductID" = i.product_id;
 
-    -- 11. Descontar stock de los productos
+    -- 9. Descontar las existencias
     UPDATE "Products" p
     SET "Stock" = p."Stock" - i.quantity
     FROM (
@@ -160,7 +145,7 @@ BEGIN
     ) i
     WHERE p."ProductID" = i.product_id;
 
-    -- 12. Mostrar confirmacion
+    -- 10. Confirmar resultado
     RAISE NOTICE
         'Compra exitosa. Factura: %, Total: %',
         v_bill_id,
